@@ -22,6 +22,7 @@
                     <el-table-column prop="sign" label="签名"></el-table-column>
                     <el-table-column prop="signType" label="状态" width="180">
                         <template slot-scope="scope">
+                            <el-tag v-if="scope.row.signType == '-1'" type="info">审核失败</el-tag>
                             <el-tag v-if="scope.row.signType == '1'" type="success">审核成功</el-tag>
                             <el-tag v-else type="danger">等待审核</el-tag>
                         </template>
@@ -45,7 +46,7 @@
                         background
                         :current-page="meta.currentPage"
                         :page-size="meta.perPage"
-                        :total="meta.totalCount"
+                        :total="meta.allList"
                         layout="total,sizes, prev, pager, next, jumper">
                 </el-pagination>
             </div>
@@ -77,8 +78,9 @@
                 tableData: [],
                 criteria: '',
                 meta: {
-                    iDisplayStart: 1, // 开始记录
-                    iDisplayLength: 100, // 范围10-100 每页数量
+                    iDisplayStart: 0, // 开始记录
+                    iDisplayLength: 10, // 范围10-100 每页数量
+                    allList:0,//总数
                 }
             }
         },
@@ -95,10 +97,12 @@
                     iDisplayStart: this.meta.iDisplayStart,
                     iDisplayLength: this.meta.iDisplayLength
                 }).then(res => {
-                    console.log('res', res);
+                    console.log(res)
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
                     this.loading = false;
+                    this.meta.allList=res.data.data.recordsTotal
+                    console.log(typeof(this.meta.allList))
                 });
             },
 
@@ -112,7 +116,7 @@
             //页码变更
             handleCurrentChange: function (val) {
                 this.loading = true;
-                this.meta.iDisplayLength = val;
+                this.meta.iDisplayStart = (val-1)*this.meta.iDisplayLength;
                 this.loadData();
             },
 
@@ -134,7 +138,7 @@
             handleEdit: function (index, row) {
                 this.id = row.id;
 
-                console.log('row',row);
+                // console.log('row',row);
 
                 this.isCreate = false;
                 this.dialogVisible = true;
@@ -172,5 +176,13 @@
         th div {
             text-align: center;
         }
+    }
+    .pagea{
+        font-weight: normal;
+        color: #606266;
+        font-size: 13px;
+        height: 28px;
+        line-height: 28px;
+        margin-top: 8px;
     }
 </style>

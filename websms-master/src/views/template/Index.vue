@@ -79,7 +79,7 @@
             background
             :current-page="meta.currentPage"
             :page-size="meta.perPage"
-            :total="meta.totalCount"
+            :total="meta.allList"
             layout="total,sizes, prev, pager, next, jumper">
         </el-pagination>
   </div>
@@ -115,7 +115,8 @@ import TemplateDialog from '@/components/TemplateDialog';
                 criteria: '',
                 meta: {
                     iDisplayStart: 0, // 开始记录
-                    iDisplayLength: 100, // 范围10-100 每页数量
+                    iDisplayLength: 10, // 范围10-100 每页数量
+                    allList:0 //总数
                 }
             }
         },
@@ -132,6 +133,7 @@ import TemplateDialog from '@/components/TemplateDialog';
                     console.log('res',res);
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
+                    this.meta.allList=res.data.data.recordsTotal
                     this.loading = false;
                 });
             },
@@ -146,7 +148,7 @@ import TemplateDialog from '@/components/TemplateDialog';
             //页码变更
             handleCurrentChange: function(val) {
                 this.loading = true;
-                this.meta.iDisplayLength = val;
+                this.meta.iDisplayStart = (val-1)*this.meta.iDisplayLength;
                 this.loadData();
             },
 
