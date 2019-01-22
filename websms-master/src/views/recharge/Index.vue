@@ -6,7 +6,7 @@
 
 
   <el-form-item label="充值条数" prop="smsCount">
-    <el-input class="inputub" type="number" v-model="forms.smsCount"  ></el-input>
+    <el-input  type="number" v-model="forms.smsCount"  ></el-input>
   </el-form-item>
 
 
@@ -59,7 +59,7 @@ export default {
             forms: {
                 smsCount: '',
                 unitPrice: '',
-                type: '0',
+                type: '',
                 money: '',
                 payWay: '',
             },
@@ -86,12 +86,24 @@ export default {
             },
 
             sendBtn(){
+                console.log(this.forms.smsCount)
+                console.log(this.forms.type)
+              if(this.forms.smsCount&&this.forms.type){
+                  this.$http.post('/operate/v1/recharge',this.forms).then(res => {
+                      console.log('res',res);
 
+                  });
+              }else {
+                  this.$message({
+                      type: 'warning',
+                      message: `请规范输入`
+                  })
+              }
             }
 
         },
         mounted() {
-            this.loadData();
+            // this.loadData();
         }
     }
 </script>
