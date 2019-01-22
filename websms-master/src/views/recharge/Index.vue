@@ -4,32 +4,33 @@
     <el-card style="margin-bottom:10px;">
 
 
+
   <el-form-item label="充值条数" prop="smsCount">
-    <el-input type="number" v-model="forms.smsCount" autocomplete="off"></el-input>
+    <el-input class="inputub" type="number" v-model="forms.smsCount"  ></el-input>
   </el-form-item>
 
 
-  <el-form-item label="短信内容" prop="smsCount">
-    <el-input type="textarea" v-model="forms.smsContent" autocomplete="off"></el-input>
-  </el-form-item>
+  <!--<el-form-item label="短信内容" prop="smsCount">-->
+    <!--<el-input type="textarea" v-model="forms.smsContent" autocomplete="off"></el-input>-->
+  <!--</el-form-item>-->
 
 
-  <el-form-item label="定时发送" prop="type">
+  <el-form-item label="充值类型" prop="type">
     <el-radio-group v-model="forms.type" size="medium">
       <el-radio border label="行业"></el-radio>
       <el-radio border label="营销"></el-radio>
     </el-radio-group>
   </el-form-item>
 
-   <el-form-item label="付款方式" prop="payWay">
-    <el-radio-group v-model="forms.type" size="medium">
-      <el-radio border label="微信扫码"></el-radio>
-      <el-radio border label="支付宝扫"></el-radio>
-      <el-radio border label="QQ扫码"></el-radio>
-      <el-radio border label="银联扫码"></el-radio>
-      <el-radio border label="clientIp"></el-radio>
-    </el-radio-group>
-  </el-form-item>
+   <!--<el-form-item label="付款方式" prop="payWay">-->
+    <!--<el-radio-group v-model="forms.type" size="medium">-->
+      <!--<el-radio border label="微信扫码"></el-radio>-->
+      <!--<el-radio border label="支付宝扫"></el-radio>-->
+      <!--<el-radio border label="QQ扫码"></el-radio>-->
+      <!--<el-radio border label="银联扫码"></el-radio>-->
+      <!--<el-radio border label="clientIp"></el-radio>-->
+    <!--</el-radio-group>-->
+  <!--</el-form-item>-->
 
 
 
@@ -64,8 +65,9 @@ export default {
             },
             rules: {
                 smsCount: [
-                    { required: true, message: '请输入电话号码', trigger: 'blur' },
-                    { min: 11, message: '至少需要输入一个手机号', trigger: 'blur' }
+                    // { required: true, message: '请输入电话号码', trigger: 'blur' },
+                    // { min: 11, message: '至少需要输入一个手机号', trigger: 'blur' }
+                    { required: true, message: '请输入正确数目', trigger: 'blur' }
                 ],
                 unitPrice: [
                     { required: true, message: '请输入短信内容', trigger: 'blur' }

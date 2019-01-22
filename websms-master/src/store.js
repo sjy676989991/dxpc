@@ -180,7 +180,7 @@ const store = new Vuex.Store({
                     menuId: 2,
                     menuName: "充值任务记录",
                     menuCode: "rechargelist",
-                    link: "/recharge-list",
+                    link: "/rechargeList",
                     icon: "el-icon-tickets",
                     lft: 18,
                     rgt: 19,

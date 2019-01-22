@@ -75,6 +75,12 @@ export const asyncRouter = [
                 meta: {menuName: "充值记录"}
             },
             {
+                path: "/rechargeList",
+                name: "rechargeList",
+                component: () => import("@/views/rechargeList/Index.vue"),
+                meta: {menuName: "充值任务记录"}
+            },
+            {
                 path: "/doc",
                 name: "doc",
                 component: () => import("@/views/doc/Index.vue"),
