@@ -97,12 +97,12 @@
                     iDisplayStart: this.meta.iDisplayStart,
                     iDisplayLength: this.meta.iDisplayLength
                 }).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
                     this.loading = false;
                     this.meta.allList=res.data.data.recordsTotal
-                    console.log(typeof(this.meta.allList))
+                    // console.log(typeof(this.meta.allList))
                 });
             },
 

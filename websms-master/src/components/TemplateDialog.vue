@@ -4,10 +4,10 @@
 
 
             <el-form-item label="短信类型" :label-width="formLabelWidth" prop="realType">
-              <el-radio-group v-model="form.realType" size="medium">
-                <el-radio border label="0">验证码</el-radio>
-                <el-radio border label="1">通知</el-radio>
-                <el-radio border label="2">营销</el-radio>
+              <el-radio-group v-model="form.realType" size="medium" >
+                <el-radio border  label="0">验证码</el-radio>
+                <el-radio border  label="1">通知</el-radio>
+                <el-radio border  label="2">营销</el-radio>
               </el-radio-group>
             </el-form-item>
 
@@ -76,11 +76,11 @@
               this.$http.get('/operate/v1/sign/all').then(res => {
                   if( res.data.code == '00')
                   {
-                    console.log('res',res.data.data);
+                    // console.log('res',res.data.data);
                     let data = res.data.data;
                     let signData = [];
                     data.forEach(item => {
-                      console.log('data',item);
+                      // console.log('data',item);
                       signData.push({label: item.sign,value:item.id});
                     });
                     this.signData = signData;
@@ -97,7 +97,7 @@
 
                         this.logining = true;
 
-                        console.log('this.form',this.form);
+                        // console.log('this.form',this.form);
 
                         if( this.isCreate ){
 
@@ -119,7 +119,9 @@
                             var formData = Object.assign(this.form, {id: this.id});
 
                             // 更新数据
+                            // console.log(formData)
                             this.$http.post('operate/v1/template/update', formData).then(res => {
+                                // console.log(res)
                                 if( res.data.code == '00' )
                                 {
                                     this.$message({

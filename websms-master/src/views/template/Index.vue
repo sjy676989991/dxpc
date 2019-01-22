@@ -130,7 +130,7 @@ import TemplateDialog from '@/components/TemplateDialog';
             loadData(){
                 this.getCriteria();
                 this.$http.post('/operate/v1/template/list',{iDisplayStart: this.meta.iDisplayStart, iDisplayLength: this.meta.iDisplayLength}).then(res => {
-                    console.log('res',res);
+                    // console.log('res',res);
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
                     this.meta.allList=res.data.data.recordsTotal
@@ -174,10 +174,9 @@ import TemplateDialog from '@/components/TemplateDialog';
                 this.isCreate = false;
                 this.dialogVisible = true;
 
-                console.log('row',row);
-
+                // console.log('row',row);
                 this.form = {
-                    realType: row.realType,
+                    realType:JSON.stringify(row.realType),
                     signId: row.signId,
                     content: row.content
                 };

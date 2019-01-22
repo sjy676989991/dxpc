@@ -4,13 +4,26 @@
 
       <div slot="header">
           批次任务列表
-      <el-form :model="searchForm" ref="searchForm">
+      <el-form ref="searchForm">
             <el-row :gutter="10" style="margin-top:20px;">
-            <el-col :span="5">
-                <el-input placeholder="开始时间" v-model="searchForm.id" style="width:100%"></el-input>
-            </el-col>
-            <el-col :span="5">
-                <el-input placeholder="结束时间" v-model="searchForm.sign" style="width:100%"></el-input>
+            <el-col :span="10">
+                <!--<el-input placeholder="开始时间" v-model="searchForm.id" style="width:100%"></el-input>-->
+            <!--</el-col>-->
+            <!--<el-col :span="5">-->
+                <!--<el-input placeholder="结束时间" v-model="searchForm.sign" style="width:100%"></el-input>-->
+
+
+                <div class="block">
+                    <el-date-picker
+                            v-model="value6"
+                            type="daterange"
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                </div>
             </el-col>
             
             <el-col :span="5">
@@ -52,7 +65,7 @@
             background
             :current-page="meta.currentPage"
             :page-size="meta.perPage"
-            :total="meta.totalCount"
+            :total="meta.allList"
             layout="total,sizes, prev, pager, next, jumper">
         </el-pagination>
   </div>
@@ -87,22 +100,36 @@
                 meta: {
                     iDisplayStart: 1, // 开始记录
                     iDisplayLength: 100, // 范围10-100 每页数量
-                }
+                    allList:0 //总数目
+                },
+                value6: '',
+                btime:'',
+                ftime:''
             }
         },
         methods: {
             // 搜索条件
-            getCriteria(){
-                this.criteria = JSON.stringify(this.searchForm);
-            },
+            // getCriteria(){
+            //     this.criteria = JSON.stringify(this.searchForm);
+            // },
 
             // 载入数据
             loadData(){
-                this.getCriteria();
-                this.$http.post('/operate/v1/batchTask/list',{iDisplayStart: this.meta.iDisplayStart, iDisplayLength: this.meta.iDisplayLength}).then(res => {
+                // this.getCriteria();
+                if(this.value6){
+                    this.btime=this.value6[0]
+                    this.ftime=this.value6[1]
+                }
+                this.$http.post('/operate/v1/batchTask/list', {
+                    iDisplayStart: this.meta.iDisplayStart,
+                    iDisplayLength: this.meta.iDisplayLength,
+                    startTime:this.btime,
+                    endTime:this.ftime
+                }).then(res => {
                     console.log('res',res);
                     this.tableData = res.data.data.items;
-                    this.meta.iDisplayStart += 1;
+                    // this.meta.iDisplayStart += 1;
+                    this.meta.allList=res.data.data.recordsTotal
                     this.loading = false;
                 });
             },
@@ -117,7 +144,7 @@
             //页码变更
             handleCurrentChange: function(val) {
                 this.loading = true;
-                this.meta.iDisplayLength = val;
+                this.meta.iDisplayStart = (val-1)*this.meta.iDisplayLength;
                 this.loadData();
             },        
 
