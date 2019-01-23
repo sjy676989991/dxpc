@@ -91,7 +91,7 @@
 
 
             dialogFormSubmit: function(){
-                var _this = this;
+                // var _this = this;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
 
@@ -116,8 +116,7 @@
                             });
 
                         }else{
-                            var formData = Object.assign(this.form, {id: this.id});
-
+                            var formData = Object.assign(this.form, {templateId : this.id});
                             // 更新数据
                             // console.log(formData)
                             this.$http.post('operate/v1/template/update', formData).then(res => {

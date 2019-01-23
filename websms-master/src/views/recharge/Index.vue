@@ -15,22 +15,23 @@
   <!--</el-form-item>-->
 
 
-  <el-form-item label="充值类型" prop="type">
-    <el-radio-group v-model="forms.type" size="medium">
-      <el-radio border label="行业"></el-radio>
-      <el-radio border label="营销"></el-radio>
-    </el-radio-group>
-  </el-form-item>
+      <el-form-item label="充值类型" prop="type">
+        <el-radio-group v-model="forms.type" size="medium">
+          <el-radio border label="行业"></el-radio>
+          <el-radio border label="营销"></el-radio>
+        </el-radio-group>
+      </el-form-item>
 
-   <!--<el-form-item label="付款方式" prop="payWay">-->
-    <!--<el-radio-group v-model="forms.type" size="medium">-->
-      <!--<el-radio border label="微信扫码"></el-radio>-->
-      <!--<el-radio border label="支付宝扫"></el-radio>-->
+
+   <el-form-item label="付款方式" prop="payWay">
+    <el-radio-group v-model="forms.payWay" size="medium">
+      <el-radio border label="微信扫码"></el-radio>
+      <el-radio border label="支付宝扫"></el-radio>
       <!--<el-radio border label="QQ扫码"></el-radio>-->
       <!--<el-radio border label="银联扫码"></el-radio>-->
       <!--<el-radio border label="clientIp"></el-radio>-->
-    <!--</el-radio-group>-->
-  <!--</el-form-item>-->
+    </el-radio-group>
+  </el-form-item>
 
 
 
@@ -80,17 +81,15 @@ export default {
             // 载入数据
             loadData(){
                 this.$http.post('/operate/v1/recharge',this.forms).then(res => {
-                    console.log('res',res);
+                    // console.log('res',res);
                 
                 });
             },
 
             sendBtn(){
-                console.log(this.forms.smsCount)
-                console.log(this.forms.type)
               if(this.forms.smsCount&&this.forms.type){
                   this.$http.post('/operate/v1/recharge',this.forms).then(res => {
-                      console.log('res',res);
+                      // console.log('res',res);
 
                   });
               }else {

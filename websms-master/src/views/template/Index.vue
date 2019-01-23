@@ -9,18 +9,37 @@
 
         <el-form :model="searchForm" ref="searchForm">
         <el-row :gutter="10" style="margin-top:20px;">
-          <el-col :span="2">
+          <el-col :span="4">
             <el-input placeholder="ID" v-model="searchForm.id" style="width:100%"></el-input>
           </el-col>
-          <el-col :span="5">
-            <el-input placeholder="类型" v-model="searchForm.sign" style="width:100%"></el-input>
+          <el-col :span="6">
+            <!--<el-input placeholder="类型" v-model="searchForm.sign" style="width:100%"></el-input>-->
+              <el-form-item label="类型：" prop="type">
+                  <el-select v-model="searchForm.sign" placeholder="请选择">
+                      <el-option
+                              v-for="item in options"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                      </el-option>
+                  </el-select>
+              </el-form-item>
           </el-col>
-          <el-col :span="5">
-            <el-input placeholder="状态" v-model="searchForm.sign" style="width:100%"></el-input>
+          <el-col :span="6">
+              <el-form-item label="状态：" prop="type">
+              <el-select v-model="searchForm.signtype" placeholder="请选择" style="color: red">
+                  <el-option
+                          v-for="item in optionst"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                  </el-option>
+              </el-select>
+              </el-form-item>
           </el-col>
-          <el-col :span="5">
-            <el-input placeholder="内容" v-model="searchForm.sign" style="width:100%"></el-input>
-          </el-col>
+          <!--<el-col :span="5">-->
+            <!--<el-input placeholder="内容" v-model="searchForm.sign" style="width:100%"></el-input>-->
+          <!--</el-col>-->
           <el-col :span="5">
             <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
           </el-col>
@@ -109,7 +128,10 @@ import TemplateDialog from '@/components/TemplateDialog';
                 },
                 searchForm: {
                     id: '',
-                    content: ''
+                    content: '',
+                    sign:'',
+                    signtype:''
+
                 },
                 tableData: [],
                 criteria: '',
@@ -117,7 +139,24 @@ import TemplateDialog from '@/components/TemplateDialog';
                     iDisplayStart: 0, // 开始记录
                     iDisplayLength: 10, // 范围10-100 每页数量
                     allList:0 //总数
-                }
+                },
+                options: [{
+                    value: '0',
+                    label: '行业'
+                },{
+                    value: '1',
+                    label: '营销'
+                },],
+                optionst: [{
+                    value: '0',
+                    label: '待审核'
+                },{
+                    value: '1',
+                    label: '审核成功'
+                },{
+                    value: '2',
+                    label: '审核失败'
+                },],
             }
         },
         methods: {
@@ -129,7 +168,14 @@ import TemplateDialog from '@/components/TemplateDialog';
             // 载入数据
             loadData(){
                 this.getCriteria();
-                this.$http.post('/operate/v1/template/list',{iDisplayStart: this.meta.iDisplayStart, iDisplayLength: this.meta.iDisplayLength}).then(res => {
+                this.$http.post('/operate/v1/template/list',{
+                    iDisplayStart: this.meta.iDisplayStart,
+                    iDisplayLength: this.meta.iDisplayLength,
+                    templateId:this.searchForm.id,
+                    status:this.searchForm.signtype,
+                    type:this.searchForm.sign
+
+                }).then(res => {
                     // console.log('res',res);
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
@@ -205,7 +251,10 @@ import TemplateDialog from '@/components/TemplateDialog';
     .table{
         margin-top: 20px;
         th div{
-            text-align: center;
+            text-align:  center;
         }
+    }
+    .el-col{
+        margin-right: 20px;
     }
 </style>
