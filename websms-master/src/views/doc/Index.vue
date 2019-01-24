@@ -40,7 +40,7 @@
                 criteria: '',
                 meta: {
                     iDisplayStart: 1, // 开始记录
-                    iDisplayLength: 100, // 范围10-100 每页数量
+                    iDisplayLength: 10, // 范围10-100 每页数量
                 }
             }
         },

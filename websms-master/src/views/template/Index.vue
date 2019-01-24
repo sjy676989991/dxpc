@@ -9,10 +9,10 @@
 
         <el-form :model="searchForm" ref="searchForm">
         <el-row :gutter="10" style="margin-top:20px;">
-          <el-col :span="4">
+          <el-col :span="3">
             <el-input placeholder="ID" v-model="searchForm.id" style="width:100%"></el-input>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="7">
             <!--<el-input placeholder="类型" v-model="searchForm.sign" style="width:100%"></el-input>-->
               <el-form-item label="类型：" prop="type">
                   <el-select v-model="searchForm.sign" placeholder="请选择">
@@ -25,7 +25,7 @@
                   </el-select>
               </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="7">
               <el-form-item label="状态：" prop="type">
               <el-select v-model="searchForm.signtype" placeholder="请选择" style="color: red">
                   <el-option
@@ -40,7 +40,7 @@
           <!--<el-col :span="5">-->
             <!--<el-input placeholder="内容" v-model="searchForm.sign" style="width:100%"></el-input>-->
           <!--</el-col>-->
-          <el-col :span="5">
+          <el-col :span="3">
             <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
           </el-col>
         </el-row>

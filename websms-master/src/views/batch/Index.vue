@@ -43,16 +43,16 @@
                     {{scope.$index + 1}}
                 </template>
             </el-table-column>
-            <el-table-column prop="batchNo" label="批次号"  width="120"></el-table-column>
+            <el-table-column prop="batchNo" label="批次号"  ></el-table-column>
             <el-table-column prop="mobileSize" label="提交数量" width="100"></el-table-column>
-            <el-table-column prop="type" label="状态" width="180">
+            <el-table-column prop="type" label="状态" width="140">
                 <template slot-scope="scope">
                     <el-tag v-if="scope.row.type == '1'" type="success">已完成</el-tag>
                     <el-tag v-else type="danger">发送中</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="createTime" label="添加时间" width="180"></el-table-column>
-            <el-table-column prop="complteTime" label="完成时间" width="180"></el-table-column>
+            <el-table-column prop="createTime" label="添加时间" ></el-table-column>
+            <el-table-column prop="complateTime" label="完成时间" ></el-table-column>
 
             <el-table-column prop="content" label="内容"></el-table-column>
         </el-table>
@@ -99,7 +99,7 @@
                 criteria: '',
                 meta: {
                     iDisplayStart: 1, // 开始记录
-                    iDisplayLength: 100, // 范围10-100 每页数量
+                    iDisplayLength: 10, // 范围10-100 每页数量
                     allList:0 //总数目
                 },
                 value6: '',
