@@ -9,6 +9,10 @@ import "@/assets/font/iconfont.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+
+import VueQriously from 'vue-qriously'
+Vue.use(VueQriously)
+
 const moment = require("moment");
 require("moment/locale/zh-cn");
 

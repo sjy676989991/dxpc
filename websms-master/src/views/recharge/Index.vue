@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-form :model="forms" status-icon :rules="rules" ref="ruleForm" label-width="100px">
+        <el-form v-if="istrue==1" :model="forms" status-icon :rules="rules" ref="ruleForm" label-width="100px">
             <el-card style="margin-bottom:10px;">
 
 
@@ -40,10 +40,22 @@
 
 
                 <el-form-item>
-                    <el-button type="primary" @click="sendBtn" logining>立即充值</el-button>
+                    <el-button v-if="buttontru==2"
+
+                               type="primary" @click="sendBtn" >立即充值</el-button>
+                    <el-button v-if="buttontru==1" type="info" disabled>立即充值</el-button>
                 </el-form-item>
 
 
+            </el-card>
+        </el-form>
+
+        <el-form v-if="istrue==2">
+            <el-card style="margin-bottom:10px; text-align: center">
+                    <div class="imgcode">
+                        <qriously :value="initQCode" :size="200"/>
+                    </div>
+                <el-button type="info" @click="info">返回</el-button>
             </el-card>
         </el-form>
 
@@ -51,11 +63,14 @@
 </template>
 
 <script>
+
     export default {
         name: "recharge",
         components: {},
         data() {
             return {
+                fullscreenLoading:false,
+                istrue:1,
                 forms: {
                     smsCount: '',
                     unitPrice: '',
@@ -72,7 +87,11 @@
                     unitPrice: [
                         {required: true, message: '请输入短信内容', trigger: 'blur'}
                     ]
-                }
+                },
+                initQCode:'',
+                typepay:false,
+                orderId:'',
+                buttontru:'1',
             }
         },
         watch: {
@@ -85,6 +104,7 @@
                             smsCount: this.forms.smsCount
                         }
                     ).then(res => {
+                        this.buttontru=2
                         this.forms.unitPrice=res.data.data.unitPrice
                         this.forms.money=(res.data.data.unitPrice*this.forms.smsCount).toFixed(2)
                     });
@@ -100,6 +120,7 @@
                             smsCount: this.forms.smsCount
                         }
                     ).then(res => {
+                        this.buttontru=2
                         this.forms.unitPrice=res.data.data.unitPrice
                         this.forms.money=(res.data.data.unitPrice*this.forms.smsCount).toFixed(2)
                     });
@@ -114,9 +135,24 @@
             },
             sendBtn() {
                 if (this.forms.smsCount && this.forms.type) {
+
+                    const loading = this.$loading({
+                        lock: true,
+                        text: 'Loading',
+                        spinner: 'el-icon-loading',
+                        background: 'rgba(0, 0, 0, 0.7)'
+                    });
                     this.$http.post('/operate/v1/recharge', this.forms).then(res => {
                         console.log('res',res);
+                        let that =this
+                        loading.close();
+                        that.initQCode=res.data.data.codeUrl
+                        that.istrue=2
+                        that.orderId =res.data.data.outTradeNo
+                        setInterval(() => {
+                            that.overpay();
 
+                        }, 3000)
                     });
                 } else {
                     this.$message({
@@ -125,15 +161,39 @@
                     })
                 }
 
-            }
+            },
+            overpay() {
+                this.$http.post("/operate/v1/recharge/task/"+this.orderId+"",
+                ).then(res => {
+                    console.log('res',res);
+                    if(res.data.data.status==1){
+                        this.$router.push({path: "../dashboard"});
+                    }else if(res.data.data.status==-1){
+                        this.$confirm('支付失败！请重新下单', '提示', {
+                            confirmButtonText: '确定',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            this.istrue=1
+                        })
+                    }
+                });
+            },
+            info() {
+                this.istrue=1
+                this.fullscreenLoading = false;
+            },
+
 
         },
         mounted() {
-            // this.loadData();
+            if(this.istrue==2){
+
+
+            }
+
         },
-        created() {
-            // this.surepay()
-        }
+
     }
 </script>
 
@@ -161,12 +221,13 @@
             text-align: center;
         }
     }
-
+    .imgcode{
+        margin: 60px auto;
+    }
     /deep/ input::-webkit-outer-spin-button,
     /deep/ input::-webkit-inner-spin-button {
         -webkit-appearance: none;
     }
-
     /deep/ input[type="number"] {
         -moz-appearance: textfield;
     }

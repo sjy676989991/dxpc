@@ -148,6 +148,7 @@
                     console.log('res', res);
                     this.tableData = res.data.data.items;
                     // this.meta.iDisplayStart += 1;
+                    this.meta.allList=res.data.data.recordsTotal
                     this.loading = false;
                 });
             },

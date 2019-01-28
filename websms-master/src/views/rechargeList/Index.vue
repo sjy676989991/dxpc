@@ -39,23 +39,31 @@
                             {{scope.$index + 1}}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="id" label="签名ID"  width="80"></el-table-column>
-                    <el-table-column prop="sign" label="签名"></el-table-column>
-                    <el-table-column prop="signType" label="状态" width="180">
+                    <el-table-column prop="createTime" label="充值时间" ></el-table-column>
+                    <el-table-column prop="payWay" label="付款类型" >
                         <template slot-scope="scope">
-                            <el-tag v-if="scope.row.signType == '1'" type="success">审核成功</el-tag>
-                            <el-tag v-else type="danger">等待审核</el-tag>
+                            <el-tag v-if="scope.row.payWay == 'ALI_QRCODE'" type="info">支付宝</el-tag>
+                            <el-tag v-if="scope.row.payWay == 'WX_NATIVE'" type="info">微信</el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="createTime" label="添加时间" width="180"></el-table-column>
+                    <el-table-column prop="recharType" label="状态" >
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.recharType == '1'" type="success">已支付</el-tag>
+                            <el-tag v-if="scope.row.recharType == '0'" type="success">未支付</el-tag>
+                            <el-tag v-else type="danger">支付失败</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="smsCount" label="充值条数" ></el-table-column>
+                    <el-table-column prop="unitPrice" label="充值单价" ></el-table-column>
+                    <el-table-column prop="allPrice" label="充值总价" ></el-table-column>
 
-                    <el-table-column fixed="right" label="操作" width="100">
-                        <template slot-scope="scope">
-                            <el-tooltip content="编辑" placement="top">
-                                <i class="el-icon-edit"  @click="handleEdit(scope.$index, scope.row)"></i>
-                            </el-tooltip>
-                        </template>
-                    </el-table-column>
+                    <!--<el-table-column fixed="right" label="操作" width="100">-->
+                        <!--<template slot-scope="scope">-->
+                            <!--<el-tooltip content="编辑" placement="top">-->
+                                <!--<i class="el-icon-edit"  @click="handleEdit(scope.$index, scope.row)"></i>-->
+                            <!--</el-tooltip>-->
+                        <!--</template>-->
+                    <!--</el-table-column>-->
                 </el-table>
             </div>
 
