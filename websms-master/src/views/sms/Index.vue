@@ -51,7 +51,6 @@
                         <el-option v-for="item in listMo"  :value="item.content">
                         </el-option>
                     </el-select>
-                    <el-button type="success" @click="checksucc">添加模板</el-button>
                 </el-form-item>
 
                 <el-form-item label="短信内容" prop="smsContent">
@@ -118,14 +117,32 @@
             //     });
             // },
             sendBtn() {
-                console.log(this.forms)
-                this.$http.post('/operate/v1/sendSms', this.forms).then(res => {
-                                console.log('res', res);
-
+                if(!this.forms.mobiles){
+                    this.$message({
+                        message: '请输入手机号码',
+                        type: 'warning'
+                    });
+                }else if(!this.forms.smsContent){
+                    this.$message({
+                        message: '请填写短信内容',
+                        type: 'warning'
+                    });
+                }else {
+                    this.$http.post('/operate/v1/sendSms', this.forms).then(res => {
+                        if(res.data.code=="00"){
+                            this.$router.push({path: "../mt"});
+                        }else {
+                            this.$message({
+                                message: res.data.message,
+                                type: 'warning'
                             });
+                        }
+
+                    });
+                }
+
             },
             submitUpload() {
-                console.log(this.updatas)
                 this.$refs.upload.submit();
             },
             handleRemove(file, fileList) {
@@ -135,19 +152,16 @@
                 console.log(file);
             },
             onsuccess(response) {
-                console.log(response)
                 this.forms.mobiles=response.data.phones
             },
             getsuccm() {
                 this.$http.get('/operate/v1/template/success').then(res => {
-                    console.log('res', res);
                     this.listMo=res.data.data
-                    console.log(this.listMo)
                 });
             },
-            checksucc() {
-                console.log(this.forms.smsContent)
-                console.log(this.messone)
+        },
+        watch:{
+            "messone"(newval,val){
                 this.forms.smsContent=this.messone
             }
         },
@@ -207,7 +221,8 @@
         }
         .help-block {
             color: #409EFF;
-            margin: 5px 0 10px 0;
+            font-size: 12px;
+            line-height: 18px;
         }
     }
 

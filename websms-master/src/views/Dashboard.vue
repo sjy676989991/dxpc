@@ -114,7 +114,6 @@
              */
             getUserBalance(){
                 this.$http.get('platform/v1/userBalance').then(res => {
-                    console.log(res)
                     const data = res.data;
                     if( data.code != '00')
                     {
