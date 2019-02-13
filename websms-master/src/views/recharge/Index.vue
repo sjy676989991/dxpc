@@ -112,7 +112,7 @@
             },
             "forms.type"(val,oldVal) {
                 this.forms.type=val
-                console.log(this.forms.type)
+                // console.log(this.forms.type)
                 if(this.forms.smsCount&&this.forms.type){
                     this.$http.post('/operate/v1/getUserPackage',
                         {
@@ -143,7 +143,7 @@
                         background: 'rgba(0, 0, 0, 0.7)'
                     });
                     this.$http.post('/operate/v1/recharge', this.forms).then(res => {
-                        console.log('res',res);
+                        // console.log('res',res);
                         let that =this
                         loading.close();
                         that.initQCode=res.data.data.codeUrl
@@ -165,7 +165,7 @@
             overpay() {
                 this.$http.post("/operate/v1/recharge/task/"+this.orderId+"",
                 ).then(res => {
-                    console.log('res',res);
+                    // console.log('res',res);
                     if(res.data.data.status==1){
                         this.$router.push({path: "../dashboard"});
                     }else if(res.data.data.status==-1){

@@ -126,7 +126,7 @@
                     startTime:this.btime,
                     endTime:this.ftime
                 }).then(res => {
-                    console.log('res',res);
+                    // console.log('res',res);
                     this.tableData = res.data.data.items;
                     // this.meta.iDisplayStart += 1;
                     this.meta.allList=res.data.data.recordsTotal

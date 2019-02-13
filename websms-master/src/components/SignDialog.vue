@@ -50,13 +50,13 @@
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
 
-                        console.log('this.form.rules',this.form.signs);
+                        // console.log('this.form.rules',this.form.signs);
 
                         this.logining = true;
                         let signs = this.form.signs.split("\n");
 
 
-                        console.log('from',signs);
+                        // console.log('from',signs);
                         if( this.isCreate ){
 
                             // 添加数据

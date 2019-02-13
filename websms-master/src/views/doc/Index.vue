@@ -54,7 +54,7 @@
             loadData(){
                 this.getCriteria();
                 this.$http.get('/operate/v1/template/list',{iDisplayStart: this.meta.iDisplayStart, iDisplayLength: this.meta.iDisplayLength}).then(res => {
-                    console.log('res',res);
+                    // console.log('res',res);
                     this.tableData = res.data.data.items;
                     this.meta.iDisplayStart += 1;
                     this.loading = false;

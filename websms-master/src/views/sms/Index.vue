@@ -42,8 +42,8 @@
 
             <el-card style="margin-bottom:10px;">
 
-                <el-form-item label="充值条数" prop="mobiles">
-                    <el-input type="textarea" v-model="forms.mobiles" autocomplete="off"></el-input>
+                <el-form-item label="手机号码" prop="mobiles">
+                    <el-input type="textarea" v-model="forms.mobiles" :autosize="{ minRows:4, maxRows: 6}" autocomplete="off"></el-input>
                 </el-form-item>
 
                 <el-form-item label="短信模板" >
@@ -54,7 +54,7 @@
                 </el-form-item>
 
                 <el-form-item label="短信内容" prop="smsContent">
-                    <el-input type="textarea" v-model="forms.smsContent" autocomplete="off"></el-input>
+                    <el-input type="textarea" v-model="forms.smsContent" :autosize="{ minRows: 6, maxRows: 10}" autocomplete="off"></el-input>
                 </el-form-item>
 
 
@@ -146,10 +146,10 @@
                 this.$refs.upload.submit();
             },
             handleRemove(file, fileList) {
-                console.log(file, fileList);
+                // console.log(file, fileList);
             },
             handlePreview(file) {
-                console.log(file);
+                // console.log(file);
             },
             onsuccess(response) {
                 this.forms.mobiles=response.data.phones

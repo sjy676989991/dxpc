@@ -85,7 +85,7 @@
             "form.realType"(newval,val){
                 this.$http.get('/operate/v1/template/system/'+newval).then(res => {
                     if (res.data.code == '00') {
-                        console.log('res',res);
+                        // console.log('res',res);
                         let data = res.data.data;
                         let userdata = [];
                         data.forEach(item => {
@@ -98,7 +98,7 @@
                 });
             },
             "userId"(newval,val) {
-                console.log(this.userdata)
+                // console.log(this.userdata)
                 this.form.content=newval
             }
         },

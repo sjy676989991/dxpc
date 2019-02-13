@@ -148,7 +148,7 @@
 
                 this.$http.post('commons/send/sms',{captcha: captcha, mobile: mobile,randomCode: this.randomCode}).then(res => {
                     let data = res.data;
-                    console.log('sms',data);
+                    // console.log('sms',data);
                     if( data.code != '00' )
                     {
                         this.randImage();
@@ -171,7 +171,7 @@
                         }
 
                         this.$http.post('commons/register', this.user).then(res => {
-                            console.log('res', res.data);
+                            // console.log('res', res.data);
                             let data = res.data;
                             if( data.code != '00' )
                             {

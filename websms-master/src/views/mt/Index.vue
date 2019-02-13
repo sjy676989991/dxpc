@@ -56,8 +56,9 @@
                     <el-table-column prop="reportTime" label="报告时间"></el-table-column>
                     <el-table-column prop="signType" label="状态">
                         <template slot-scope="scope">
-                            <el-tag v-if="scope.row.signType == '1'" type="success">已完成</el-tag>
-                            <el-tag v-else type="danger">发送中</el-tag>
+                            <el-tag v-if="scope.row.status == '1'" type="success">已完成</el-tag>
+                            <el-tag  v-else-if="scope.row.status == '0'" type="info">发送中</el-tag>
+                            <el-tag  v-else-if="scope.row.status == '-1'" type="danger">发送失败</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column prop="message" label="原因"></el-table-column>
@@ -132,7 +133,7 @@
             // 载入数据
             loadData() {
                 // this.getCriteria();
-                console.log(this.value6)
+                // console.log(this.value6)
                 if (this.value6) {
                     this.btime = this.value6[0]
                     this.ftime = this.value6[1]
@@ -145,9 +146,9 @@
                     status: this.staic,
                     mobile: this.mibilep
                 }).then(res => {
-                    console.log('res', res);
+                    // console.log('res', res);
                     this.tableData = res.data.data.items;
-                    // this.meta.iDisplayStart += 1;
+                    // console.log('res', this.tableData);
                     this.meta.allList=res.data.data.recordsTotal
                     this.loading = false;
                 });
