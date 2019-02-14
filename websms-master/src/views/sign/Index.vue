@@ -8,8 +8,20 @@
                             class="el-icon-circle-plus"></i> 添加短信签名
                     </el-button>
                 </el-tooltip>
-            </div>
+                    <el-row  style="margin-top:20px;">
 
+                        <el-col :span="5">
+                            <el-input v-model="idnum" placeholder="签名" type="number" ></el-input>
+                        </el-col>
+
+                        <el-col :span="5">
+                            <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
+                        </el-col>
+                    </el-row>
+                <div class="loginget">
+
+                </div>
+            </div>
             <div class="body">
                 <el-table stripe :data="tableData" align="center">
                     <el-table-column type="selection" width="55"></el-table-column>
@@ -51,7 +63,8 @@
                 </el-pagination>
             </div>
         </el-card>
-        <SignDialog :isCreate="isCreate" :id="id" :isVisible="dialogVisible" :form="form" @onAddResourceDialogEvent="onAddResourceDialogEvent" />
+        <SignDialog :isCreate="isCreate" :id="id" :isVisible="dialogVisible" :form="form"
+                    @onAddResourceDialogEvent="onAddResourceDialogEvent"/>
     </div>
 </template>
 
@@ -63,11 +76,12 @@
         components: {
             SignDialog
         },
-        data(){
+        data() {
             return {
                 id: 0,
                 isCreate: true,
                 dialogVisible: false,
+                idnum:'',
                 form: {
                     signs: ''
                 },
@@ -80,28 +94,30 @@
                 meta: {
                     iDisplayStart: 0, // 开始记录
                     iDisplayLength: 10, // 范围10-100 每页数量
-                    allList:0,//总数
+                    allList: 0,//总数
                 }
             }
         },
         methods: {
             // 搜索条件
-            getCriteria(){
+            getCriteria() {
                 this.criteria = JSON.stringify(this.searchForm);
             },
 
             // 载入数据
-            loadData(){
+            loadData() {
+                console.log(this.idnum)
                 this.getCriteria();
                 this.$http.post('/operate/v1/sign/list', {
                     iDisplayStart: this.meta.iDisplayStart,
-                    iDisplayLength: this.meta.iDisplayLength
+                    iDisplayLength: this.meta.iDisplayLength,
+                    signId :this.idnum
                 }).then(res => {
-                    // console.log(res)
+                    console.log(res)
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
                     this.loading = false;
-                    this.meta.allList=res.data.data.recordsTotal
+                    this.meta.allList = res.data.data.recordsTotal
                     // console.log(typeof(this.meta.allList))
                 });
             },
@@ -116,7 +132,7 @@
             //页码变更
             handleCurrentChange: function (val) {
                 this.loading = true;
-                this.meta.iDisplayStart = (val-1)*this.meta.iDisplayLength;
+                this.meta.iDisplayStart = (val - 1) * this.meta.iDisplayLength;
                 this.loadData();
             },
 
@@ -130,7 +146,7 @@
                 this.dialogVisible = true;
             },
             // 关闭联系dialog
-            onAddResourceDialogEvent(data){
+            onAddResourceDialogEvent(data) {
                 this.dialogVisible = data;
                 this.loadData();
             },
@@ -177,12 +193,24 @@
             text-align: center;
         }
     }
-    .pagea{
+
+    .pagea {
         font-weight: normal;
         color: #606266;
         font-size: 13px;
         height: 28px;
         line-height: 28px;
         margin-top: 8px;
+    }
+    .loginget{
+        /*float: right;*/
+    }
+
+    /deep/ input::-webkit-outer-spin-button,
+    /deep/ input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    /deep/ input[type="number"]{
+        -moz-appearance: textfield;
     }
 </style>

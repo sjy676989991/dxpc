@@ -4,13 +4,8 @@
             <div slot="header">
                 发送记录
                 <el-form :model="searchForm" ref="searchForm">
-                    <el-row :gutter="20" style="margin-top:20px;">
-                        <el-col :span="10">
-                            <!--<el-input placeholder="开始时间" v-model="searchForm.id" style="width:100%"></el-input>-->
-                            <!--</el-col>-->
-                            <!--<el-col :span="5">-->
-                            <!--<el-input placeholder="结束时间" v-model="searchForm.sign" style="width:100%"></el-input>-->
-
+                    <el-row  style="margin-top:20px;">
+                        <el-col :span="6">
                             <div class="block">
                                 <el-date-picker
                                         v-model="value6"
@@ -29,7 +24,7 @@
                                 <el-option label="已完成" value="1"></el-option>
                             </el-select>
                         </el-col>
-                        <el-col :span="5">
+                        <el-col :span="3">
                             <el-input placeholder="手机号" type="number" v-model="mibilep"></el-input>
                         </el-col>
 
