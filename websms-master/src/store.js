@@ -29,7 +29,8 @@ const subTree = (parentNode, allMenus) => {
 const store = new Vuex.Store({
     state: {
         //baseUrl: 'http://139.199.204.155:8999/',
-        baseUrl: 'http://qq397709884.e1.luyouxia.net:26928/',
+        // baseUrl: 'http://qq397709884.e1.luyouxia.net:26928/',
+        baseUrl: 'http://qq1355448983.w3.luyouxia.net/',
         token: null,
         userInfo: {},
         loading: false,
@@ -93,6 +94,16 @@ const store = new Vuex.Store({
                     icon: "el-icon-menu",
                     lft: 2,
                     rgt: 3,
+                    depth: 1
+                },
+                {
+                    menuId: 10,
+                    menuName: "账号设置",
+                    menuCode: "person",
+                    link: "/person",
+                    icon: "el-icon-setting",
+                    lft: 4,
+                    rgt: 5,
                     depth: 1
                 },
                 {

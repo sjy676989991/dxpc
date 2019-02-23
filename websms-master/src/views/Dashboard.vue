@@ -43,14 +43,9 @@
             </el-col>
         </el-row>
         <el-row>
-            <el-col :span="24">
-                <el-card>
-                    <div slot="header">
-                        <span>日发送统计</span>
-                    </div>
+            <el-card>
 
-                </el-card>
-            </el-col>
+            </el-card>
         </el-row>
     </div>
 </template>
@@ -72,6 +67,12 @@
                 smsCount:   "",  //行业条数
                 makSmsCount:     "",   // 营销条数
                 creditLine: "", //授信
+                input1:'',
+                input2:'',
+                input3:'',
+                input4:'',
+                dialogImageUrl: '',
+                dialogVisible: false,
                 data: [
                     {
                         date: "2018-1-1",
@@ -125,10 +126,42 @@
                     this.creditLine = data.data.creditLine;
 
                 })
-            }
+            },
         },
         mounted() {
             this.getUserBalance();
         }
     };
 </script>
+<style scoped lang="scss">
+    .elinput{
+            margin-top: 20px;
+    }
+
+    .avatar-uploader{
+
+    }
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+</style>

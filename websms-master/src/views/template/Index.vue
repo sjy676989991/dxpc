@@ -1,125 +1,128 @@
 <template>
-<div>
-    <el-card shadow="never" :body-style="{ padding: '0px' }">
+    <div>
+        <el-card shadow="never" :body-style="{ padding: '0px' }">
 
-      <div slot="header">
-        <el-tooltip content="添加短信模板" placement="right">
-            <el-button type="danger" style="margin: 0" @click.native.prevent="add()"><i class="el-icon-circle-plus"></i> 添加短信模板</el-button>
-        </el-tooltip>
+            <div slot="header">
+                <el-tooltip content="添加短信模板" placement="right">
+                    <el-button type="danger" style="margin: 0" @click.native.prevent="add()"><i
+                            class="el-icon-circle-plus"></i> 添加短信模板
+                    </el-button>
+                </el-tooltip>
 
-        <el-form :model="searchForm" ref="searchForm">
-        <el-row :gutter="10" style="margin-top:20px;">
-          <el-col :span="3">
-            <el-input placeholder="ID" v-model="searchForm.id" style="width:100%"></el-input>
-          </el-col>
-          <el-col :span="7">
-            <!--<el-input placeholder="类型" v-model="searchForm.sign" style="width:100%"></el-input>-->
-              <el-form-item label="类型：" prop="type">
-                  <el-select v-model="searchForm.sign" placeholder="请选择">
-                      <el-option
-                              v-for="item in options"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value">
-                      </el-option>
-                  </el-select>
-              </el-form-item>
-          </el-col>
-          <el-col :span="7">
-              <el-form-item label="状态：" prop="type">
-              <el-select v-model="searchForm.signtype" placeholder="请选择" style="color: red">
-                  <el-option
-                          v-for="item in optionst"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                  </el-option>
-              </el-select>
-              </el-form-item>
-          </el-col>
-          <!--<el-col :span="5">-->
-            <!--<el-input placeholder="内容" v-model="searchForm.sign" style="width:100%"></el-input>-->
-          <!--</el-col>-->
-          <el-col :span="3">
-            <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
-          </el-col>
-        </el-row>
-        </el-form>
-      </div>
+                <el-form :model="searchForm" ref="searchForm">
+                    <el-row :gutter="10" type="flex" class="row-bg" style="margin-top:20px;">
+                        <el-col :sm="4" :md="3" :lg="3">
+                            <el-input placeholder="ID" v-model="searchForm.id" style="width:100%"></el-input>
+                        </el-col>
+                        <el-col :sm="10" :md="11" :lg="10   ">
+                            <!--<el-input placeholder="类型" v-model="searchForm.sign" style="width:100%"></el-input>-->
+                            <el-form-item label="类型：" prop="type">
+                                <el-select v-model="searchForm.sign" placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :sm="10" :md="10" :lg="10">
+                            <el-form-item label="状态：" prop="type">
+                                <el-select v-model="searchForm.signtype" placeholder="请选择" style="color: red">
+                                    <el-option
+                                            v-for="item in optionst"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <!--<el-col :span="5">-->
+                        <!--<el-input placeholder="内容" v-model="searchForm.sign" style="width:100%"></el-input>-->
+                        <!--</el-col>-->
+                        <el-col :span="3">
+                            <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
+                        </el-col>
+                    </el-row>
+                </el-form>
+            </div>
 
-    <div class="body">
-        <el-table stripe :data="tableData" align="center">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column label="序号" width="80">
-                <template slot-scope="scope">
-                    {{scope.$index + 1}}
-                </template>
-            </el-table-column>
-            <el-table-column prop="id" label="模板ID"  width="80"></el-table-column>
-            <el-table-column prop="realType" label="短信类型">
-              <template slot-scope="scope">
-                <el-tag v-if="scope.row.realType == '0'" type="success">验证码</el-tag>
-                <el-tag v-if="scope.row.realType == '1'" type="success">通知</el-tag>
-                <el-tag v-if="scope.row.realType == '2'" type="success">营销</el-tag>
+            <div class="body">
+                <el-table stripe :data="tableData" align="center">
+                    <el-table-column type="selection" width="55"></el-table-column>
+                    <el-table-column label="序号" width="80">
+                        <template slot-scope="scope">
+                            {{scope.$index + 1}}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="id" label="模板ID" width="80"></el-table-column>
+                    <el-table-column prop="realType" label="短信类型">
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.realType == '0'" type="success">验证码</el-tag>
+                            <el-tag v-if="scope.row.realType == '1'" type="success">通知</el-tag>
+                            <el-tag v-if="scope.row.realType == '2'" type="success">营销</el-tag>
 
-              </template>
-            </el-table-column>
-            <el-table-column prop="sign" label="签名"></el-table-column>
-            <el-table-column prop="content" label="内容"></el-table-column>
-            <el-table-column prop="type" label="类型" width="120">
-                <template slot-scope="scope">
-                    <el-tag v-if="scope.row.type == '1'" type="success">营销短信</el-tag>
-                    <el-tag v-else type="danger">普通短信</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="status" label="状态" width="120">
-                <template slot-scope="scope">
-                    <el-tag v-if="scope.row.status == '1'" type="success">审核成功</el-tag>
-                    <el-tag v-else-if="scope.row.status == '2'" type="danger">审核失败</el-tag>
-                    <el-tag v-else type="default">待审核</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column prop="createTime" label="添加时间" width="160"></el-table-column>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="sign" label="签名"></el-table-column>
+                    <el-table-column prop="content" label="内容"></el-table-column>
+                    <el-table-column prop="type" label="类型" width="120">
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.type == '1'" type="success">营销短信</el-tag>
+                            <el-tag v-else type="danger">普通短信</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="status" label="状态" width="120">
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.status == '1'" type="success">审核成功</el-tag>
+                            <el-tag v-else-if="scope.row.status == '2'" type="danger">审核失败</el-tag>
+                            <el-tag v-else type="default">待审核</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="createTime" label="添加时间" width="160"></el-table-column>
 
-            <el-table-column fixed="right" label="操作" width="100">
-                <template slot-scope="scope">
-                    <el-tooltip content="编辑" placement="top">
-                        <i class="el-icon-edit"  @click="handleEdit(scope.$index, scope.row)"></i>
-                    </el-tooltip>
-                </template>
-            </el-table-column>
-        </el-table>
+                    <el-table-column fixed="right" label="操作" width="100">
+                        <template slot-scope="scope">
+                            <el-tooltip content="编辑" placement="top">
+                                <i class="el-icon-edit" @click="handleEdit(scope.$index, scope.row)"></i>
+                            </el-tooltip>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+
+            <div class="footer" style="padding:10px 0;text-align:center;">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        background
+                        :current-page="meta.currentPage"
+                        :page-size="meta.perPage"
+                        :total="meta.allList"
+                        layout="total,sizes, prev, pager, next, jumper">
+                </el-pagination>
+            </div>
+        </el-card>
+
+        <TemplateDialog :isCreate="isCreate" :id="id" :isVisible="dialogVisible" :form="form"
+                        @onAddResourceDialogEvent="onAddResourceDialogEvent"/>
+
+
     </div>
-
-    <div class="footer" style="padding:10px 0;text-align:center;">
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            background
-            :current-page="meta.currentPage"
-            :page-size="meta.perPage"
-            :total="meta.allList"
-            layout="total,sizes, prev, pager, next, jumper">
-        </el-pagination>
-  </div>
-    </el-card>
-
-<TemplateDialog :isCreate="isCreate" :id="id" :isVisible="dialogVisible" :form="form" @onAddResourceDialogEvent="onAddResourceDialogEvent" />
-
-
-</div>
 </template>
 
 <script>
-import TemplateDialog from '@/components/TemplateDialog';
+    import TemplateDialog from '@/components/TemplateDialog';
 
     export default {
         name: "carrier",
-        components:{
+        components: {
             TemplateDialog
         },
-        data(){
-            return{
+        data() {
+            return {
                 id: 0,
                 isCreate: true,
                 dialogVisible: false,
@@ -129,8 +132,8 @@ import TemplateDialog from '@/components/TemplateDialog';
                 searchForm: {
                     id: '',
                     content: '',
-                    sign:'',
-                    signtype:''
+                    sign: '',
+                    signtype: ''
 
                 },
                 tableData: [],
@@ -138,22 +141,22 @@ import TemplateDialog from '@/components/TemplateDialog';
                 meta: {
                     iDisplayStart: 0, // 开始记录
                     iDisplayLength: 10, // 范围10-100 每页数量
-                    allList:0 //总数
+                    allList: 0 //总数
                 },
                 options: [{
                     value: '0',
                     label: '行业'
-                },{
+                }, {
                     value: '1',
                     label: '营销'
                 },],
                 optionst: [{
                     value: '0',
                     label: '待审核'
-                },{
+                }, {
                     value: '1',
                     label: '审核成功'
-                },{
+                }, {
                     value: '2',
                     label: '审核失败'
                 },],
@@ -161,68 +164,68 @@ import TemplateDialog from '@/components/TemplateDialog';
         },
         methods: {
             // 搜索条件
-            getCriteria(){
+            getCriteria() {
                 this.criteria = JSON.stringify(this.searchForm);
             },
 
             // 载入数据
-            loadData(){
+            loadData() {
                 this.getCriteria();
-                this.$http.post('/operate/v1/template/list',{
+                this.$http.post('/operate/v1/template/list', {
                     iDisplayStart: this.meta.iDisplayStart,
                     iDisplayLength: this.meta.iDisplayLength,
-                    templateId:this.searchForm.id,
-                    status:this.searchForm.signtype,
-                    type:this.searchForm.sign
+                    templateId: this.searchForm.id,
+                    status: this.searchForm.signtype,
+                    type: this.searchForm.sign
 
                 }).then(res => {
                     // console.log('res',res);
                     this.tableData = res.data.data.items;
                     //this.meta.iDisplayStart += 1;
-                    this.meta.allList=res.data.data.recordsTotal
+                    this.meta.allList = res.data.data.recordsTotal
                     this.loading = false;
                 });
             },
 
             //每页显示数据量变更
-            handleSizeChange: function(val) {
+            handleSizeChange: function (val) {
                 this.loading = true;
                 this.meta.iDisplayLength = val;
                 this.loadData();
             },
 
             //页码变更
-            handleCurrentChange: function(val) {
+            handleCurrentChange: function (val) {
                 this.loading = true;
-                this.meta.iDisplayStart = (val-1)*this.meta.iDisplayLength;
+                this.meta.iDisplayStart = (val - 1) * this.meta.iDisplayLength;
                 this.loadData();
             },
 
             // 添加联系人
-            add: function(){
+            add: function () {
                 this.isCreate = true;
                 this.id = 0;
                 this.form = {
                     realType: '0',
                     signId: '',
-                    content:''
+                    content: ''
                 };
                 this.dialogVisible = true;
             },
             // 关闭联系dialog
-            onAddResourceDialogEvent(data){
+            onAddResourceDialogEvent(data) {
                 this.dialogVisible = data;
                 this.loadData();
             },
             // 编辑内容
-            handleEdit: function(index, row){
+            handleEdit: function (index, row) {
                 this.id = row.id;
                 this.isCreate = false;
                 this.dialogVisible = true;
 
                 // console.log('row',row);
                 this.form = {
-                    realType:JSON.stringify(row.realType),
+                    realType: JSON.stringify(row.realType),
                     signId: row.signId,
                     content: row.content
                 };
@@ -235,26 +238,31 @@ import TemplateDialog from '@/components/TemplateDialog';
 </script>
 
 <style scoped lang="scss">
-    .el-input{
+    .el-input {
         width: 160px;
     }
-    .search_input.address{
+
+    .search_input.address {
         margin-left: 0;
     }
-    .search_input{
+
+    .search_input {
         float: left;
         margin-left: 20px;
     }
-    .el-button{
+
+    .el-button {
         margin-left: 20px;
     }
-    .table{
+
+    .table {
         margin-top: 20px;
-        th div{
-            text-align:  center;
+        th div {
+            text-align: center;
         }
     }
-    .el-col{
-        margin-right: 20px;
+
+    .el-col {
+        margin-right: 10px;
     }
 </style>

@@ -18,9 +18,6 @@
                             <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
                         </el-col>
                     </el-row>
-                <div class="loginget">
-
-                </div>
             </div>
             <div class="body">
                 <el-table stripe :data="tableData" align="center">

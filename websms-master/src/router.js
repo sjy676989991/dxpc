@@ -33,6 +33,12 @@ export const asyncRouter = [
                 meta: {menuName: "概览"}
             },
             {
+                path: "/person",
+                name: "person",
+                component: () => import("@/views/person/Index.vue"),
+                meta: {menuName: "账号设置"}
+            },
+            {
                 path: "/sign",
                 name: "sign",
                 component: () => import("@/views/sign/Index.vue"),

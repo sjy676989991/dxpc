@@ -30,7 +30,7 @@
                         <span>{{this.$store.state.userInfo.username}}<i
                                 class="el-icon-arrow-down el-icon--right"></i></span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="Profile"><i class="el-icon-setting"></i> 个人设定</el-dropdown-item>
+                            <!--<el-dropdown-item command="Profile"><i class="el-icon-setting"></i> 个人设定</el-dropdown-item>-->
                             <el-dropdown-item command="SignOut"><i class="el-icon-refresh"></i> 安全退出</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
