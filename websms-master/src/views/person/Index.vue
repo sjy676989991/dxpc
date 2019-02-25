@@ -10,16 +10,16 @@
                     </div>
 
                     <div class="elinput">
-                        <el-input placeholder="请输入内容" v-model="input1">
+                        <el-input placeholder="请输入内容" v-model="displayName">
                             <template slot="prepend">显示名</template>
                         </el-input>
-                        <el-input class="elinput" placeholder="请输入内容" v-model="input2">
+                        <el-input class="elinput" placeholder="请输入内容" v-model="ips">
                             <template slot="prepend">ip白名单</template>
                         </el-input>
-                        <el-input class="elinput" placeholder="请输入内容" v-model="input3">
+                        <el-input class="elinput" placeholder="请输入内容" v-model="reportCallbackUrl">
                             <template slot="prepend">状态报告推送地址</template>
                         </el-input>
-                        <el-input class="elinput" placeholder="请输入内容" v-model="input4">
+                        <el-input class="elinput" placeholder="请输入内容" v-model="moCallbackUrl">
                             <template slot="prepend">上行报告推送地址</template>
                         </el-input>
                         <div class="upimg">
@@ -32,7 +32,7 @@
                                 <div slot="tip" class="el-upload__tip">资质图片 PNG,JPG格式 4M以内</div>
                             </el-upload>
                             <el-dialog :visible.sync="dialogVisible">
-                                <img width="100%" :src="dialogImageUrl" alt="">
+                                <img width="100%" :src="accessoryFileUrl" alt="">
                             </el-dialog>
                         </div>
                     </div>
@@ -62,11 +62,11 @@
         data() {
             return {
 
-                input1: '',
-                input2: '',
-                input3: '',
-                input4: '',
-                dialogImageUrl: '',
+                displayName: '',
+                ips: '',
+                reportCallbackUrl: '',
+                moCallbackUrl: '',
+                accessoryFileUrl: '',
                 dialogVisible: false,
             }
         },
@@ -76,12 +76,28 @@
                 console.log(file, fileList);
             },
             handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
+                this.accessoryFileUrl = file.url;
                 this.dialogVisible = true;
-            }
+            },
+            getUser(){
+                this.$http.get('/platform/v1/userInfo').then(res => {
+                    console.log(res)
+                    const data = res.data;
+                    if( data.code != '00')
+                    {
+                        return this.$message.error(data.message);
+                    }
+
+                    this.displayName=data.data.displayName
+                    this.ips=data.data.ips
+                    this.reportCallbackUrl=data.data.reportCallbackUrl
+                    this.moCallbackUrl=data.data.moCallbackUrl
+                    this.accessoryFileUrl=data.data.accessoryFileUrl
+                })
+            },
         },
         mounted() {
-
+            this.getUser()
         }
     };
 </script>
