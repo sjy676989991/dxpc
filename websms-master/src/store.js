@@ -179,6 +179,36 @@ const store = new Vuex.Store({
                     depth: 1
                 },
                 {
+                    menuId: 14,
+                    menuName: "短信充值",
+                    menuCode: "recharge",
+                    link: "/recharge",
+                    icon: "el-icon-goods",
+                    lft: 13,
+                    rgt: 14,
+                    depth: 1
+                },
+                {
+                    menuId: 15,
+                    menuName: "充值任务记录",
+                    menuCode: "rechargelist",
+                    link: "/rechargeList",
+                    icon: "el-icon-edit-outline",
+                    lft: 13,
+                    rgt: 14,
+                    depth: 1
+                },
+                {
+                    menuId: 16,
+                    menuName: "接口文档",
+                    menuCode: "doc",
+                    link: "/doc",
+                    icon: "el-icon-document",
+                    lft: 13,
+                    rgt: 14,
+                    depth: 1
+                },
+                {
                     menuId: 1,
                     menuName: "短信充值",
                     menuCode: "recharge",

@@ -143,7 +143,6 @@
                         background: 'rgba(0, 0, 0, 0.7)'
                     });
                     this.$http.post('/operate/v1/recharge', this.forms).then(res => {
-                        // console.log('res',res);
                         let that =this
                         loading.close();
                         that.initQCode=res.data.data.codeUrl

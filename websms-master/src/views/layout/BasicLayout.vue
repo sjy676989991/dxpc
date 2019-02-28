@@ -10,16 +10,16 @@
                     <i :class="menu.icon"></i>
                     <span slot="title">{{menu.menuName}}</span>
                 </el-menu-item>
-                <el-submenu :index="menu.link" v-else>
-                    <template slot="title">
-                        <i :class="menu.icon"></i>
-                        <span slot="title">{{menu.menuName}}</span>
-                    </template>
-                    <el-menu-item :index="child.link" v-for="child in menu.children" :key="child.menuId">
-                        <i :class="menu.icon"></i>
-                        <span slot="title">{{child.menuName}}</span>
-                    </el-menu-item>
-                </el-submenu>
+                <!--<el-submenu :index="menu.link" v-else>-->
+                    <!--<template slot="title">-->
+                        <!--<i :class="menu.icon"></i>-->
+                        <!--<span slot="title">{{menu.menuName}}</span>-->
+                    <!--</template>-->
+                    <!--<el-menu-item :index="child.link" v-for="child in menu.children" :key="child.menuId">-->
+                        <!--<i :class="menu.icon"></i>-->
+                        <!--<span slot="title">{{child.menuName}}</span>-->
+                    <!--</el-menu-item>-->
+                <!--</el-submenu>-->
             </el-menu>
         </el-aside>
         <el-container>
