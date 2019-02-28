@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.1.0",
     "element-ui": "^2.4.9",
     "lodash": "^4.17.11",
     "mockjs": "^1.0.1-beta3",

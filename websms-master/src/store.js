@@ -29,8 +29,9 @@ const subTree = (parentNode, allMenus) => {
 const store = new Vuex.Store({
     state: {
         //baseUrl: 'http://139.199.204.155:8999/',
-        baseUrl: 'http://qq397709884.e1.luyouxia.net:26928/',
+        // baseUrl: 'http://qq397709884.e1.luyouxia.net:26928/',
         // baseUrl: 'http://qq1355448983.w3.luyouxia.net/',
+        baseUrl:'http://47.105.123.66:8999/',
         token: null,
         userInfo: {},
         loading: false,

@@ -88,6 +88,7 @@ export default {
       login() {
           this.$http.post("platform/v1/api/login", this.user).then(res => {
              const data = res.data;
+             console.log(data)
              if( data.code != '00' )
              {
                  this.randImage();

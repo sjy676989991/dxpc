@@ -24,9 +24,11 @@
                         </el-input>
                         <div class="upimg">
                             <el-upload
-                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    :action="this.$store.state.baseUrl+'/platform/v1/upload/image'"
                                     list-type="picture-card"
                                     :on-preview="handlePictureCardPreview"
+                                    :on-success="handupsucc"
+                                    :file-list="fileList2"
                                     :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 <div slot="tip" class="el-upload__tip">资质图片 PNG,JPG格式 4M以内</div>
@@ -37,7 +39,7 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <el-button type="primary">保存</el-button>
+                        <el-button type="primary" @click="srtup">保存</el-button>
                     </div>
                 </el-card>
             </el-col>
@@ -68,16 +70,21 @@
                 moCallbackUrl: '',
                 accessoryFileUrl: '',
                 dialogVisible: false,
+                path:'',
+                fileList2: [{name: 'us', url: ''}]
+
             }
         },
         methods: {
 
             handleRemove(file, fileList) {
-                console.log(file, fileList);
             },
             handlePictureCardPreview(file) {
                 this.accessoryFileUrl = file.url;
                 this.dialogVisible = true;
+            },
+            handupsucc(response, file, fileList){
+                this.accessoryFileUrl=response.path
             },
             getUser(){
                 this.$http.get('/platform/v1/userInfo').then(res => {
@@ -87,17 +94,41 @@
                     {
                         return this.$message.error(data.message);
                     }
-
                     this.displayName=data.data.displayName
                     this.ips=data.data.ips
                     this.reportCallbackUrl=data.data.reportCallbackUrl
                     this.moCallbackUrl=data.data.moCallbackUrl
+                    this.fileList2[0].url=data.data.accessoryFileUrl
                     this.accessoryFileUrl=data.data.accessoryFileUrl
                 })
             },
+            srtup(){
+                this.$http.post('/platform/v1/userAudit',{
+                    displayName:this.displayName,
+                    ips:this.ips,
+                    reportUrl:this.reportCallbackUrl,
+                    moCallbackUrl:this.moCallbackUrl,
+                    accessoryFileUrl:this.accessoryFileUrl,
+                }).then(res => {
+                    console.log(res)
+                    const data = res.data;
+                    if(data.code != '00'){
+                        return this.$message.error(data.message);
+                    }
+                    return this.$message(data.message);
+                })
+            },
+            srtaaaup(){
+                this.$http.post('/platform/v1/day').then(res => {
+                    console.log(res)
+
+                })
+            }
         },
         mounted() {
             this.getUser()
+            console.log(this.$store.state.baseUrl)
+            this.srtaaaup()
         }
     };
 </script>
