@@ -60,8 +60,8 @@ export default {
     return {
         url: '',
         user: {
-          mobile: "18627713655",
-          password: "12345678",
+          mobile: "",
+          password: "",
           code: "",
           randomStr: "",
         }

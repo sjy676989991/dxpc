@@ -49,8 +49,8 @@
                     <el-table-column prop="recharType" label="状态" >
                         <template slot-scope="scope">
                             <el-tag v-if="scope.row.recharType == '1'" type="success">已支付</el-tag>
-                            <el-tag v-if="scope.row.recharType == '0'" type="success">未支付</el-tag>
-                            <el-tag v-else type="danger">支付失败</el-tag>
+                            <el-tag v-if="scope.row.recharType == '0'" type="warning">未支付</el-tag>
+                            <el-tag v-if="scope.row.recharType == '-1'" type="danger">支付失败</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column prop="smsCount" label="充值条数" ></el-table-column>

@@ -92,6 +92,7 @@
                 typepay:false,
                 orderId:'',
                 buttontru:'1',
+                timeout:''
             }
         },
         watch: {
@@ -148,7 +149,7 @@
                         that.initQCode=res.data.data.codeUrl
                         that.istrue=2
                         that.orderId =res.data.data.outTradeNo
-                        setInterval(() => {
+                        that.timeout=setInterval(() => {
                             that.overpay();
 
                         }, 3000)
@@ -164,9 +165,17 @@
             overpay() {
                 this.$http.post("/operate/v1/recharge/task/"+this.orderId+"",
                 ).then(res => {
-                    // console.log('res',res);
+                    console.log('res',res);
                     if(res.data.data.status==1){
-                        this.$router.push({path: "../dashboard"});
+                        var this_=this;
+                        clearInterval(this_.timeout)
+                        this_.$message({
+                            message: '支付成功',
+                            type: 'success'
+                        });
+                        setTimeout(function () {
+                            this_.$router.push({path: "../dashboard"});
+                        },1000)
                     }else if(res.data.data.status==-1){
                         this.$confirm('支付失败！请重新下单', '提示', {
                             confirmButtonText: '确定',
@@ -186,12 +195,11 @@
 
         },
         mounted() {
-            if(this.istrue==2){
-
-
-            }
 
         },
+        destroyed(){
+            this.overpay()
+        }
 
     }
 </script>
