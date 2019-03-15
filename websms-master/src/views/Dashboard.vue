@@ -236,6 +236,7 @@
             }
         },
         mounted() {
+
             this.getUserBalance();
             this.getUser()
             this.initChart();
